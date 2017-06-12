@@ -1,3 +1,5 @@
+const pivotLocale = require('./PivotLocale.js');
+
 /**
  * @param {LightPivotTable} controller
  * @param container
@@ -11,7 +13,7 @@ var PivotView = function (controller, container) {
     this.tablesStack = [];
     this.selectedRows = {}; // rowNumber: 1
 
-    numeral.call(this);
+    this.numeral = require('./numeral.js');
 
     this.elements = {
         container: container,
@@ -1595,3 +1597,4 @@ PivotView.prototype.renderRawData = function (data) {
     }
 
 };
+module.exports = PivotView;

@@ -153,3 +153,5 @@ MDXParser.prototype.applyFilter = function (basicMDX, filterSpec) {
     return basicMDX + (filterSpec ? " %FILTER " + filterSpec : "");
 
 };
+
+module.exports = MDXParser;

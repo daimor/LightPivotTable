@@ -1,3 +1,9 @@
+const MDXParser = require('./MDXParser.js');
+const DataSource = require('./DataSource.js');
+const DataController = require('./DataController.js');
+const PivotView = require('./PivotView.js');
+const pivotLocale = require('./PivotLocale.js');
+
 /**
  * Light pivot table global object.
  *
@@ -413,3 +419,6 @@ LightPivotTable.prototype.init = function () {
     this.refresh();
 
 };
+
+module.exports = LightPivotTable;
+module.exports.DataSource = DataSource;

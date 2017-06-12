@@ -6,7 +6,7 @@
  * http://adamwdraper.github.com/Numeral-js/
  */
 
-var numeral = function () {
+(function () {
 
     /************************************
      Constants
@@ -14,11 +14,13 @@ var numeral = function () {
 
     var numeral,
         VERSION = '1.5.3',
-    // internal storage for language config files
+        // internal storage for language config files
         languages = {},
         currentLanguage = 'en',
         zeroFormat = null,
-        defaultFormat = '0,0';
+        defaultFormat = '0,0',
+        // check for nodeJS
+        hasModule = (typeof module !== 'undefined' && module.exports);
 
     var NUMBER_GROUP_LENGTH = 3,
         NUMBER_GROUP_SEPARATOR = ",",
@@ -665,6 +667,28 @@ var numeral = function () {
 
     };
 
-    this.numeral = numeral;
+    /************************************
+        Exposing Numeral
+    ************************************/
 
-};
+    // CommonJS module is defined
+    if (hasModule) {
+        module.exports = numeral;
+    }
+
+    /*global ender:false */
+    if (typeof ender === 'undefined') {
+        // here, `this` means `window` in the browser, or `global` on the server
+        // add `numeral` as a global object via a string identifier,
+        // for Closure Compiler 'advanced' mode
+        this['numeral'] = numeral;
+    }
+
+    /*global define:false */
+    if (typeof define === 'function' && define.amd) {
+        define([], function () {
+            return numeral;
+        });
+    }
+
+}).call(this);

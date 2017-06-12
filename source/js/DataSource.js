@@ -1,3 +1,6 @@
+const MDXParser = require('./MDXParser.js');
+const pivotLocale = require('./PivotLocale.js');
+
 /**
  * Data source.
  *
@@ -281,3 +284,5 @@ DataSource.prototype.getCurrentData = function (callback) {
     }
 
 };
+
+module.exports = DataSource;

@@ -90,3 +90,4 @@ PivotLocale.prototype.get = function (index) {
 };
 
 var pivotLocale = new PivotLocale();
+module.exports = pivotLocale;

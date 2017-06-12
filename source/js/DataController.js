@@ -1,3 +1,5 @@
+const pivotLocale = require('./PivotLocale.js');
+
 /**
  * @param {LightPivotTable} controller
  * @param {function} dataChangeTrigger
@@ -852,3 +854,5 @@ DataController.prototype.modifyRawData = function (data) {
     }
 
 };
+
+module.exports = DataController;
