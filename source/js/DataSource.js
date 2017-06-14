@@ -141,24 +141,20 @@ DataSource.prototype.getCurrentData = function (callback) {
         __ = this._convert,
         mdx = this.BASIC_MDX,
         mdxParser = new MDXParser(),
-        mdxType = mdxParser.mdxType(mdx),
+        mdxType = mdx ? mdxParser.mdxType(mdx) : "",
         ready = {
             state: 0,
             data: {},
             pivotData: {}
         };
 
-    for (var i = 0; i < this.FILTERS.length; i++) {
-        mdx = mdxParser.applyFilter(mdx, this.FILTERS[i]);
-    }
-
-    if (typeof this.GLOBAL_CONFIG.rowCount === "number") {
-        mdx = mdxParser.applyRowCount(mdx, this.GLOBAL_CONFIG.rowCount);
-    }
-
     var setupPivotOptions = function () {
 
         var data = ready.pivotData;
+
+        _.BASIC_MDX = data.mdx;
+        mdx = _.BASIC_MDX;
+        mdxType = mdxParser.mdxType(mdx);
 
         _.GLOBAL_CONFIG["pivotProperties"] = ready.pivotData;
 
@@ -241,6 +237,14 @@ DataSource.prototype.getCurrentData = function (callback) {
 
     var requestData = function () {
 
+        for (var i = 0; i < _.FILTERS.length; i++) {
+            mdx = mdxParser.applyFilter(mdx, _.FILTERS[i]);
+        }
+
+        if (typeof _.GLOBAL_CONFIG.rowCount === "number") {
+            mdx = mdxParser.applyRowCount(mdx, _.GLOBAL_CONFIG.rowCount);
+        }
+
         if (_.LPT.CONFIG["logs"]) console.log("LPT MDX request:", mdx);
 
         var setData = function (data) {
@@ -268,7 +272,7 @@ DataSource.prototype.getCurrentData = function (callback) {
 
     _.LPT.pivotView.displayLoading();
 
-    if (this.DATA_SOURCE_PIVOT) {
+    if (!this.BASIC_MDX && this.DATA_SOURCE_PIVOT) {
         this._post(this.SOURCE_URL + "/DataSource"
                        + (_.NAMESPACE ? "?Namespace=" + _.NAMESPACE : ""), {
             DataSource: this.DATA_SOURCE_PIVOT

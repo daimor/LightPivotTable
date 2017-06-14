@@ -56,8 +56,8 @@ LightPivotTable.prototype.refresh = function () {
     var _  = this,
         i;
 
-    if (!this.dataSource.BASIC_MDX) {
-        console.log("Unable to refresh: no basic MDX set.");
+    if (!this.dataSource.BASIC_MDX && !this.dataSource.DATA_SOURCE_PIVOT) {
+        console.log("Unable to refresh: either basic MDX or pivot should be set.");
         return;
     }
 

@@ -17,13 +17,13 @@ declare namespace LightPivotTable {
   }
 
   interface DataSourceConfig {
-    basicMDX: string;
+    pivot?: string;
+    basicMDX?: string;
     MDX2JSONSource: string;
     namespace: string;
     username?: string;
     password?: string;
     sendCookies?: boolean;
-    pivot?: string;
   }
 
   interface Options {
