@@ -189,7 +189,7 @@ declare class LightPivotTable {
   constructor(options?: LightPivotTable.Options);
 }
 
-declare module "lightpivottable" {
+declare module "deepsee-lightpivottable" {
   export default class LightPivotTable {
     constructor(options?: any);
     LightPivotTable: LightPivotTable;
